@@ -71,12 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\libs\my\mydll\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\libs\my\mydll\general\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
+    <ExternalIncludePath>D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\libs\my\mydll\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\libs\my\mydll\general\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
+    <ExternalIncludePath>D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,11 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mydll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mydll.lib;opencv_world480d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,16 +133,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mydll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mydll.lib;opencv_world480.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\QtDeskTemplate\cvalgrm.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

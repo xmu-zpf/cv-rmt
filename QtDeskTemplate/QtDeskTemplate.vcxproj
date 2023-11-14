@@ -118,8 +118,13 @@
     <QtRcc Include="QtDeskTemplate.qrc" />
     <QtUic Include="QtDeskTemplate.ui" />
     <QtMoc Include="QtDeskTemplate.h" />
+    <ClCompile Include="cvalgrm.cpp" />
     <ClCompile Include="QtDeskTemplate.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cvalgrm.h" />
+    <ClInclude Include="measure.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
