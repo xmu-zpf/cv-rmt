@@ -63,18 +63,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <IncludePath>D:\libs\my\mydll\general\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\mydll\general\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\my\mydll\general\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libs\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>D:\libs\my\mydll\general\source;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>D:\libs\cv4.8\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\my\mydll\general\include;D:\libs\cv4.8\opencv\sources\include\opencv2;D:\libs\cv4.8\opencv\sources\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\mydll\general\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\my\mydll\general\include;D:\libs\cv4.8\opencv\sources\include\opencv2;D:\libs\cv4.8\opencv\sources\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libs\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>D:\libs\my\mydll\general\source;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>opencv_world480d.lib;%(AdditionalDependencies);mydll.lib</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world470d.lib;%(AdditionalDependencies);mydll.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -87,7 +87,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_world480.lib;%(AdditionalDependencies);mydll.lib</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world470.lib;%(AdditionalDependencies);mydll.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
