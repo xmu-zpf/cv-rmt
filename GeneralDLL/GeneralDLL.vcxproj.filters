@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Libs\my\DLL\general\include\general.h">
+    <ClInclude Include="general.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Libs\my\DLL\general\include\general.cpp">
+    <ClCompile Include="general.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

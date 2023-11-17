@@ -71,7 +71,6 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\..\..\..\Libs\my\DLL\general\bin</OutDir>
     <TargetName>general</TargetName>
     <IncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\GeneralDLL;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Libs\my\DLL\general\bin;$(LibraryPath)</LibraryPath>
@@ -159,13 +158,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Libs\my\DLL\general\include\general.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="general.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Libs\my\DLL\general\include\general.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="general.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
