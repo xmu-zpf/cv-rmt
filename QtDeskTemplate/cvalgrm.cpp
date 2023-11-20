@@ -11,26 +11,34 @@ namespace my {
         cv::findContours(binaryImage, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 
         // Find the largest contour
-        //size_t largestContourIndex = 0;
-        //double largestContourArea = 0.0;
-        //for (size_t i = 0; i < contours.size(); i++)
-        //{
-        //    double contourArea = cv::contourArea(contours[i]);
-        //    if (contourArea > largestContourArea)
-        //    {
-        //        largestContourArea = contourArea;
-        //        largestContourIndex = i;
-        //    }
-        //}
-
-        std::vector<cv::Point> PTST;
+        size_t largestContourIndex = 0;
+        double largestContourArea = 0.0;
+        for (size_t i = 0; i < contours.size(); i++)
+        {
+            double contourArea = cv::contourArea(contours[i]);
+            if (contourArea > largestContourArea)
+            {
+                largestContourArea = contourArea;
+                largestContourIndex = i;
+            }
+        }
+        auto& largestContour = contours[largestContourIndex];
+        /*std::vector<cv::Point> PTST;
         for (auto& iter : contours)
         {
             PTST.insert(PTST.end(), iter.begin(), iter.end());
-        }
+        }*/
 
         // Fit ellipse using the largest contour
-        cv::RotatedRect ellipse = cv::fitEllipse(PTST);
+#ifdef _CONSOLE
+        auto t1_st = std::chrono::high_resolution_clock::now();
+#endif // _CONSOLE
+        cv::RotatedRect ellipse = cv::fitEllipse(largestContour);
+#ifdef _CONSOLE
+        auto t1_ed = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = t1_ed - t1_st;
+        std::cout << "call from algm:" << duration << std::endl;
+#endif // _CONSOLE
 
         return ellipse;
     }
