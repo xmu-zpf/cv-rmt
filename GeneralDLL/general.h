@@ -5,12 +5,19 @@
 #include <tchar.h>
 #include <cwchar>
 
+
+
+#ifdef _ASDLL
 #ifdef GENERALDLL_EXPORTS
 
 #define DLLAPI _declspec(dllexport)
 #else 
 #define DLLAPI _declspec(dllimport)
-
+#endif
+#else
+#define DLLAPI NOTDLL
+#define NOTDLL
+#endif // _ASDLL
 
 
 namespace my {
@@ -19,8 +26,7 @@ namespace my {
 	std::string DLLAPI Wchar_tToString(wchar_t* wchar);
 	LPCWSTR DLLAPI CharToLPCWSTR(const char* charStr);
 
-	std::string DLLAPI GetFileName(const char* title, const char* defualtPath = "C:/");
-
+	std::string DLLAPI GetFileName(const char* title, const wchar_t* defualtPath = L"C:\\");
+	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath = L"D:\\");
 }
 
-#endif

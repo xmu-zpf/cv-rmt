@@ -71,14 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
-    <SourcePath>D:\Libs\my\DLL\general\source;D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
-    <ExternalIncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\QtDeskTemplate;D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
+    <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Libs\my\DLL\general\source;D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
+    <ExternalIncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\programs\github repositorys\xmu-zpf\cv-rmt\QtDeskTemplate;D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
     <SourcePath>D:\Libs\my\DLL\general\source;D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
     <ExternalIncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\QtDeskTemplate;D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
@@ -114,7 +114,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_ASDLL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -122,8 +122,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mydll.lib;opencv_world480d.lib;%(AdditionalDependencies);halconcpp.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GeneralDLL.lib;opencv_world480d.lib;%(AdditionalDependencies);halconcpp.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_ASDLL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -142,8 +142,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mydll.lib;opencv_world480.lib;%(AdditionalDependencies);halconcpp.lib;general.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GeneralDLL.lib;opencv_world480.lib;%(AdditionalDependencies);halconcpp.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

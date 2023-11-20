@@ -1,4 +1,4 @@
-#include <general.h>
+#include "general.h"
 
 namespace my {
 	void TcharToChar(const TCHAR* tchar, char* _char)
@@ -41,7 +41,8 @@ namespace my {
 	}
 
 	HWND _hwndf;
-	std::string GetFileName(const char* title, const char* defualtPath)
+	//可包含中文
+	std::string GetFileName(const char* title, const wchar_t* defualtPath)
 	{
 		TCHAR* szBuffer = new TCHAR[200](0);
 		TCHAR* wtitle = new TCHAR[200](0);
@@ -50,7 +51,7 @@ namespace my {
 		filepath.lStructSize = sizeof(filepath);
 		filepath.hwndOwner = _hwndf;
 		filepath.lpstrFilter = _T("jpg文件(*.jpg)\0*.jpg\0png文件(*.png)\0*.png\0所有文件(*.*)\0*.*\0");
-		filepath.lpstrInitialDir = CharToLPCWSTR(defualtPath);//默认的文件路径 
+		filepath.lpstrInitialDir = defualtPath;//默认的文件路径 
 		filepath.lpstrFile = szBuffer;//存放文件的缓冲区 
 		filepath.nMaxFile = 200;
 		filepath.nFilterIndex = 0;
@@ -68,5 +69,27 @@ namespace my {
 		delete[] szBuffer;
 		szBuffer = nullptr;
 		return filename;
+	}
+
+	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath) 
+	{
+		OPENFILENAME ofn;
+		wchar_t* fileName = new wchar_t[200];
+		wchar_t* wtitle = new TCHAR[200](0);
+		CharToTchar(title, wtitle);
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lpstrTitle = L"选择文件";
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.lpstrFilter = L"图像文件\0*.bmp;*.jpg;*.png;*.tif;*.gif;*.jpeg;*.jpe;*.jfif\0All Files\0*.*\0";
+		ofn.lpstrInitialDir = defualtPath;//默认的文件路径 
+		ofn.lpstrFile = fileName;
+		ofn.nMaxFile = MAX_PATH;
+		ofn.lpstrTitle = wtitle;
+		ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_ALLOWMULTISELECT;
+		if (GetOpenFileName(&ofn))
+		{
+			return fileName;
+		}
+		return nullptr;
 	}
 }
