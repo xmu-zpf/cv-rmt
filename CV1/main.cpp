@@ -40,13 +40,27 @@ int main()
 	cv::imshow("1", img);
 	cv::waitKey();
 
-    auto t1_st = std::chrono::high_resolution_clock::now();
-	auto rslt = my::fitEllipseHalcon(img);
-    auto t1_ed = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = t1_ed - t1_st;
-    std::cout << duration << std::endl;
-	cv::Mat ellipsimg = my::drawEllipseOnImage(img, rslt);
-	cv::imshow("rslt", ellipsimg);
+    //std::vector<std::vector<cv::Point2d>> contours;
+    //cv::findContours(img, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+
+    //int maxindex = 0;
+    //for (int i = 0; i < contours.size(); ++i)
+    //{
+    //    if (contours[i].size() > contours[maxindex].size())
+    //        maxindex = i;
+    //}
+    //auto& mcontour = contours[maxindex];
+
+    auto ellipseRRTC =  my::fitEllipseHalcon(img);
+    cv::Mat RsltImg = my::drawEllipseOnImage(img, ellipseRRTC);
+
+ //   auto t1_st = std::chrono::high_resolution_clock::now();
+ //   auto rslt = my::fitEllipseHalcon(img);
+ //   auto t1_ed = std::chrono::high_resolution_clock::now();
+ //   std::chrono::duration<double> duration = t1_ed - t1_st;
+ //   std::cout << duration << std::endl;
+	//cv::Mat ellipsimg = my::drawEllipseOnImage(img, rslt);
+	cv::imshow("rslt", RsltImg);
 	cv::waitKey();
 	/*himg himg("bytr", img.cols, img.rows, img.data);*/
 //    try
