@@ -70,7 +70,7 @@ namespace my {
 		szBuffer = nullptr;
 		return filename;
 	}
-
+	
 	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath) 
 	{
 		OPENFILENAME ofn;
