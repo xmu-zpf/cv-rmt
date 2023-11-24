@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\dll\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\GeneralDLL;D:\Libs\opencv4.8\opencv\build\include\opencv2;D:\Libs\opencv4.8\opencv\build\include;D:\Programs\CPP\CV1\GeneralDLL;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libs\my\DLL\bin;D:\Libs\opencv4.8\opencv\build\x64\vc16\lib;D:\libs\my\dll\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\dll\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\GeneralDLL;D:\Libs\opencv4.8\opencv\build\include\opencv2;D:\Libs\opencv4.8\opencv\build\include;D:\Programs\CPP\CV1\GeneralDLL;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Libs\my\DLL\bin;D:\Libs\opencv4.8\opencv\build\x64\vc16\lib;D:\libs\my\dll\bin;D:\libs\cv4.8\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,7 +137,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world480.lib;%(AdditionalDependencies);GeneralDLL.lib</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world480.lib;GeneralDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

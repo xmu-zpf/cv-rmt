@@ -72,13 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Libs\opencv4.8\opencv\build\x64\vc16\lib;D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
     <SourcePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Libs\my\DLL\general\source;D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
     <ExternalIncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\programs\github repositorys\xmu-zpf\cv-rmt\QtDeskTemplate;D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>D:\Programs\CPP\CV1\GeneralDLL;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconc;D:\Apps\work\Halcon\HALCON-22.11-Steady\include;D:\Apps\work\Halcon\HALCON-22.11-Steady\include\halconcpp;D:\Libs\opencv\build\include\opencv2;D:\Libs\opencv\build\include;D:\libs\cv4.8\opencv\build\include\opencv2;D:\libs\cv4.8\opencv\build\include;D:\Libs\my\DLL\general\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Libs\opencv4.8\opencv\build\x64\vc16\lib;D:\libs\my\dll\bin;D:\Libs\my\DLL\general\bin;D:\Apps\work\Halcon\HALCON-22.11-Steady\lib\x64-win64;D:\Libs\opencv\build\x64\vc16\lib;D:\libs\cv4.8\opencv\build\x64\vc16\lib;D:\libs\my\mydll\general\bin;$(LibraryPath)</LibraryPath>
     <SourcePath>D:\Libs\my\DLL\general\source;D:\Programs\CPP\CV1\QtDeskTemplate;D:\libs\cv4.8\opencv\sources;$(SourcePath)</SourcePath>
     <ExternalIncludePath>D:\programs\github repositorys\xmu-zpf\cv-rmt\QtDeskTemplate;D:\Programs\CPP\CV1\QtDeskTemplate;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>

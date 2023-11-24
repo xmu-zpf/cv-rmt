@@ -7,7 +7,7 @@ using namespace cv;
 int main()
 {
 	Mat srcImage, grayImage, dstImage;
-	srcImage = imread(my::GetFileName("选择文件"));
+	srcImage = imread(my::GetFileName("选择文件", L"D:\\TestSet\\"));
 	if (srcImage.empty())
 	{
 		cout << "load error!" << endl;
@@ -23,8 +23,8 @@ int main()
 	double H = 4.2; /* default th_h=0  */
 	double L = 0.81; /* default th_l=0  */
 	double W = 1.0; /* default W=1.3   */
-	char pdf_out[]( "C:\\Users\\Admin\\Desktop\\output.pdf" );  /*pdf filename*/
-	char txt_out[]{ "C:\\Users\\Admin\\Desktop\\output.txt" };
+	char pdf_out[]( "D:\\TestSet\\SPCrslt\\Out.pdf" );  /*pdf filename*/
+	char txt_out[]{ "D:\\TestSet\\SPCrslt\\Out.txt" };
 
 	cvtColor(srcImage, grayImage, COLOR_BGR2GRAY);
 	dstImage = grayImage;
