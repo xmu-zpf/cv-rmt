@@ -21,7 +21,7 @@
     <ClCompile Include="..\QtDeskTemplate\cvalgrm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\HALCON2Cpp\fit ellipse.cpp">
+    <ClCompile Include="fit ellipse.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

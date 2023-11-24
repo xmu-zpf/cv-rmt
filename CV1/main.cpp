@@ -57,6 +57,42 @@ void imshow_ha(std::string winname, const HalconCpp::HImage& image) {
     __imshow_ha__(winname, image);
 }
 
+cv::Mat HImageToMat(const HalconCpp::HImage& hImg) {
+    cv::Mat mat;
+    int channels = hImg.CountChannels()[0].I();
+    HalconCpp::HImage hImage = hImg.ConvertImageType("byte");
+
+    Hlong hW = 0, hH = 0; HString cType;
+
+    if (channels == 1) {
+        void* r = hImage.GetImagePointer1(&cType, &hW, &hH);
+        mat.create(int(hH), int(hW), CV_8UC1);
+        memcpy(mat.data, static_cast<unsigned char*>(r), int(hW * hH));
+    }
+    else if (channels == 3) {
+        void* r = NULL, * g = NULL, * b = NULL;
+
+        hImage.GetImagePointer3(&r, &g, &b, &cType, &hW, &hH);
+        mat.create(int(hH), int(hW), CV_8UC3);
+
+        std::vector<cv::Mat> vec(3);
+        vec[0].create(int(hH), int(hW), CV_8UC1);
+        vec[1].create(int(hH), int(hW), CV_8UC1);
+        vec[2].create(int(hH), int(hW), CV_8UC1);
+
+        memcpy(vec[2].data, static_cast<unsigned char*>(r), int(hW * hH));
+        memcpy(vec[1].data, static_cast<unsigned char*>(g), int(hW * hH));
+        memcpy(vec[0].data, static_cast<unsigned char*>(b), int(hW * hH));
+        cv::merge(vec, mat);
+    }
+    return mat;
+}
+
+cv::Mat HObjectToMat(const HalconCpp::HObject& hObj) {
+    HalconCpp::HImage hImg(hObj);
+    return HImageToMat(hImg);
+}
+
 int main()
 {
 	//cv::Mat img = cv::imread("D:\\TestSet\\zh\\2wbn1.png", cv::IMREAD_GRAYSCALE | CV_32F);
@@ -124,8 +160,30 @@ int main()
 
         GenContourRegionXld(ho_binImg, &ho_Contours, "border");
 
+        std::vector<std::vector<cv::Point2f>> xldContours;
+        HTuple numContours;
+        CountObj(ho_Contours, &numContours);
+        for (int i = 1; i < numContours.I(); i++)
+        {
+            std::vector<cv::Point2f> Contour;
+            HObject singleContour;
+            SelectObj(ho_Contours, &singleContour, i);
+            HTuple row, column;
+            GetContourXld(singleContour, &row, &column);
+            int num_points = row.Length();
+            Contour.reserve(num_points);
+
+            // 将Halcon的点坐标转换为cv::Point2f
+            for (int j = 0; j < num_points; j++) {
+                Contour.push_back(cv::Point2f(column[j].D(), row[j].D()));
+            }
+            xldContours.push_back(Contour);
+            std::cout << Contour << std::endl;
+        }
+        
+
         auto t1_st = std::chrono::high_resolution_clock::now();
-        FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 3, 2, &hv_Row, &hv_Column,
+        FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
             &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
         auto t1_ed = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = t1_ed - t1_st;
