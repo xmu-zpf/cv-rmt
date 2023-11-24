@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\HALCON2Cpp\fit ellipse.cpp" />
     <ClCompile Include="..\QtDeskTemplate\cvalgrm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

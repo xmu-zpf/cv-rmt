@@ -34,11 +34,34 @@ wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
     return nullptr;
 }
 
+/************************************
+Í¼ÏñÏÔÊ¾£ºtcy shanghai 2021/3/17  V1.0
+*************************************/
+#define __imshow_ha__(winname,image)                  \
+{                                                     \
+	HTuple width, height;                             \
+	                                                  \
+	HalconCpp::GetImageSize(image, &width, &height);  \
+	HWindow w(0, 0, width, height);                   \
+	w.SetWindowParam("window_title", winname.c_str());\
+	                                                  \
+	image.DispObj(w);                                 \
+	w.Click();                                        \
+	w.ClearWindow();                                  \
+}
+
+void imshow_ha(std::string winname, const HalconCpp::HObject& image) {
+    __imshow_ha__(winname, image);
+}
+void imshow_ha(std::string winname, const HalconCpp::HImage& image) {
+    __imshow_ha__(winname, image);
+}
+
 int main()
 {
-	cv::Mat img = cv::imread(my::GetFileName("Ñ¡ÔñÒ»¸ö",L"D:\\TestSet\\"), cv::IMREAD_GRAYSCALE | CV_32F);
-	cv::imshow("1", img);
-	cv::waitKey();
+	//cv::Mat img = cv::imread("D:\\TestSet\\zh\\2wbn1.png", cv::IMREAD_GRAYSCALE | CV_32F);
+	//cv::imshow("1", img);
+	//cv::waitKey();
 
     //std::vector<std::vector<cv::Point2d>> contours;
     //cv::findContours(img, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
@@ -51,8 +74,8 @@ int main()
     //}
     //auto& mcontour = contours[maxindex];
 
-    auto ellipseRRTC =  my::fitEllipseHalcon(img);
-    cv::Mat RsltImg = my::drawEllipseOnImage(img, ellipseRRTC);
+    //auto ellipseRRTC =  my::fitEllipseHalcon(img);
+    //cv::Mat RsltImg = my::drawEllipseOnImage(img, ellipseRRTC);
 
  //   auto t1_st = std::chrono::high_resolution_clock::now();
  //   auto rslt = my::fitEllipseHalcon(img);
@@ -60,63 +83,88 @@ int main()
  //   std::chrono::duration<double> duration = t1_ed - t1_st;
  //   std::cout << duration << std::endl;
 	//cv::Mat ellipsimg = my::drawEllipseOnImage(img, rslt);
-	cv::imshow("rslt", RsltImg);
-	cv::waitKey();
-	/*himg himg("bytr", img.cols, img.rows, img.data);*/
-//    try
-//    {
-//        Himg himg;
-//        HTuple HWind;
-//        himg.ReadImage(wGetFileName("Ñ¡ÔñÍ¼Ïñ", L"D:\\TestSet\\"));
-//        HalconCpp::DispImage(himg, HWind);
-//    }
-//
-//
+	//cv::imshow("rslt", RsltImg);
+	//cv::waitKey();
+	//Himg himg("bytr", img.cols, img.rows, img.data);
+    //try
+    //{
+    //    Himg himg;
+    //    HTuple HWind;
+    //    HTuple  Width, Height;
+    //    himg.ReadImage("D:\\TestSet\\zh\\2wbn1.png");
+    //    OpenWindow(10, 10, Width, Height, 0, "visible", "", &HWind);
+    //    HalconCpp::DispImage(himg, HWind);
+    //}
+
+
 //    catch (HException& HDevExpDefaultException)
 //{
 //    // Error handling
 //    printf("%s\n", HDevExpDefaultException.ErrorMessage().Text());
 //}
-    //try
-    //{
-    //    HObject  ho_Image, ho_GrayImage, ho_Edges, ho_SelectedXLD;
-    //    HObject  ho_ContoursSplit, ho_SelectedXLD1, ho_ContEllipse;
-    //    HTuple  hv_Row, hv_Column, hv_Phi, hv_Radius1;
-    //    HTuple  hv_Radius2, hv_StartPhi, hv_EndPhi, hv_PointOrder;
-    //    HTuple  hv_Width, hv_Height, hv_WindowHandle, hv_WindowHandle1;
+    try
+    {
+        
+        // Local iconic variables
+        HObject  ho_OriginImg, ho_GrayImage, ho_binImg;
+        HObject  ho_Contours, ho_ContEllipse;
 
-    //    ReadImage(&ho_Image, wOpenFileDialog());
-    //    Rgb1ToGray(ho_Image, &ho_GrayImage);
-    //    EdgesSubPix(ho_GrayImage, &ho_Edges, "canny", 1, 5, 10);
-    //    //ÑÇÏñËØ±ßÔµ
-    //    SelectShapeXld(ho_Edges, &ho_SelectedXLD, "contlength", "and", 367, 369);
-    //    SegmentContoursXld(ho_SelectedXLD, &ho_ContoursSplit, "lines_ellipses", 5, 4, 2);
-    //    SelectShapeXld(ho_ContoursSplit, &ho_SelectedXLD1, "contlength", "and", 72, 77);
+        // Local control variables
+        HTuple  hv_SlctdImgPath, hv_t1, hv_Row, hv_Column;
+        HTuple  hv_Phi, hv_Radius1, hv_Radius2, hv_StartPhi, hv_EndPhi;
+        HTuple  hv_PointOrder, hv_t2, hv_elapsed;
 
-    //    FitEllipseContourXld(ho_SelectedXLD1, "fitzgibbon", -1, 0, 0, 200, 3, 2, &hv_Row,
-    //        &hv_Column, &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
+        // dev_open_file_dialog(...); only in hdevelop
+        ReadImage(&ho_OriginImg, wGetFileName("Ñ¡ÔñÍ¼Ïñ", L"D:\\TestSet\\"));
+        imshow_ha("tuxiang", ho_OriginImg);
 
-    //    // Step 4: »æÖÆÄâºÏµÄÍÖÔ²
-    //    HObject ho_Ellipse;
-    //    GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
-    //        hv_StartPhi, hv_EndPhi, "positive", 1.5);
-    //    GetImageSize(ho_GrayImage, &hv_Width, &hv_Height);
-    //    SetWindowAttr("background_color", "black");
-    //    OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle);
-    //    HDevWindowStack::Push(hv_WindowHandle);
-    //    if (HDevWindowStack::IsOpen())
-    //        DispObj(ho_SelectedXLD1, HDevWindowStack::GetActive());
+        Rgb1ToGray(ho_OriginImg, &ho_GrayImage);
 
-    //    SetWindowAttr("background_color", "black");
-    //    OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle1);
-    //    HDevWindowStack::Push(hv_WindowHandle1);
-    //    if (HDevWindowStack::IsOpen())
-    //        DispObj(ho_ContEllipse, HDevWindowStack::GetActive());
-    //}
-    //catch (HException& HDevExpDefaultException)
-    //{
-    //    // Error handling
-    //    printf("%s\n", HDevExpDefaultException.ErrorMessage().Text());
-    //}
+        Threshold(ho_GrayImage, &ho_binImg, 128, 255);
+
+        GenContourRegionXld(ho_binImg, &ho_Contours, "border");
+
+        CountSeconds(&hv_t1);
+
+        auto t1_st = std::chrono::high_resolution_clock::now();
+        FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 3, 2, &hv_Row, &hv_Column,
+            &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
+        auto t1_ed = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = t1_ed - t1_st;
+        std::cout << "\ncall from algm:" << duration << std::endl;
+
+        GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
+            hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
+
+        //imshow_ha("jieguo", ho_ContEllipse);
+
+        CountSeconds(&hv_t2);
+        hv_elapsed = hv_t2 - hv_t1;
+
+       /* if (HDevWindowStack::IsOpen())
+            SetColor(HDevWindowStack::GetActive(), "green");*/
+
+        //// Step 4: »æÖÆÄâºÏµÄÍÖÔ²
+        //HObject ho_Ellipse;
+        //GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
+        //    hv_StartPhi, hv_EndPhi, "positive", 1.5);
+        //GetImageSize(ho_GrayImage, &hv_Width, &hv_Height);
+        //SetWindowAttr("background_color", "black");
+        //OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle);
+        //HDevWindowStack::Push(hv_WindowHandle);
+        //if (HDevWindowStack::IsOpen())
+        //    DispObj(ho_SelectedXLD1, HDevWindowStack::GetActive());
+
+        //SetWindowAttr("background_color", "black");
+        //OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle1);
+        //HDevWindowStack::Push(hv_WindowHandle1);
+        //if (HDevWindowStack::IsOpen())
+        //    DispObj(ho_ContEllipse, HDevWindowStack::GetActive());
+    }
+    catch (HException& HDevExpDefaultException)
+    {
+        // Error handling
+        printf("%s\n", HDevExpDefaultException.ErrorMessage().Text());
+    }
     
 }

@@ -28,14 +28,14 @@ void error(char * msg)
 }
 
 /* memory allocation, print an error and exit if fail*/
-void * xmalloc(size_t size)
-{
-	void * p;
-	if (size == 0) error("xmalloc: zero size");
-	p = malloc(size);
-	if (p == NULL) error("xmalloc: out of memory");
-	return p;
-}
+//void * xmalloc(size_t size)
+//{
+//	void * p;
+//	if (size == 0) error("xmalloc: zero size");
+//	p = malloc(size);
+//	if (p == NULL) error("xmalloc: out of memory");
+//	return p;
+//}
 
 /* compute a > b considering the rounding errors due to the representation of double numbers*/
 int wgreater(double a, double b)
@@ -86,19 +86,17 @@ to a newly allocated filtered image, of the same size as the input image. */
 void gaussian_filter(uchar* image, uchar* out, int X, int Y, double sigma)
 {
 	int x, y, offset, i, j, nx2, ny2, n;
-	double * kernel;
-	double * tmp;
+
+	double* tmp = new double[X * Y];
 	double val, prec;
 
 	if (sigma <= 0.0) error("gaussian_filter: sigma must be positive");
 	if (image == NULL || X < 1 || Y < 1) error("gaussian_filter: invalid image");
 
-
-	tmp = (double *)xmalloc(X * Y * sizeof(double));
 	prec = 3.0;
 	offset = (int)ceil(sigma * sqrt(2.0 * prec * log(10.0)));
 	n = 1 + 2 * offset; //kernel size
-	kernel = (double *)xmalloc(n * sizeof(double));
+	double* kernel = new double[n];
 	gaussian_kernel(kernel, n, sigma, (double)offset);
 
 	// auxiliary variables for the double of the image size
@@ -149,8 +147,8 @@ void gaussian_filter(uchar* image, uchar* out, int X, int Y, double sigma)
 		out[x + y*X] = (uchar)val;
 	}
 
-	free((void *)kernel);
-	free((void *)tmp);
+	delete[] kernel;
+	delete[] tmp;
 }
 
 /* return a score for chaining pixels 'from' to 'to', favoring closet point:
@@ -427,15 +425,13 @@ thresholds.
 void thresholds_with_hysteresis(int * next, int * prev,	
 	double * modG,	int X, int Y,double th_h, double th_l)
 {
-	int * valid;
+	int* valid = new int[X * Y];
 	int i, j, k;
 
 	/* check input */
 	if (next == NULL || prev == NULL || modG == NULL)
 		error("thresholds_with_hysteresis: invalid input");
 
-	/* get memory */
-	valid = (int *)xmalloc(X * Y * sizeof(int));
 	for (i = 0; i<X*Y; i++) valid[i] = FALSE;
 
 	/* validate all edge points over th_h or connected to them and over th_l */
@@ -473,7 +469,7 @@ void thresholds_with_hysteresis(int * next, int * prev,
 		prev[i] = next[i] = -1;
 
 	/* free memory */
-	free((void *)valid);
+	delete[] valid;
 }
 
 /* create a list of chained edge points composed of 3 lists
@@ -516,9 +512,9 @@ void list_chained_edge_points(double ** x, double ** y, int * N,int ** curve_lim
 	a simplest example is when only one chain of length 3 is present:
 	curve_limits[0] = 0, curve_limits[1] = 3.)
 	*/
-	*x = (double *)xmalloc(X * Y * sizeof(double));
-	*y = (double *)xmalloc(X * Y * sizeof(double));
-	*curve_limits = (int *)xmalloc(X * Y * sizeof(int));
+	*x = new double[X * Y];
+	*y = new double[X * Y];
+	*curve_limits = new int[X * Y];
 	*N = 0;
 	*M = 0;
 
@@ -612,16 +608,52 @@ for i determined by curve_limits[k] <= i < curve_limits[k+1].
 curve k is closed if x[curve_limits[k]] == x[curve_limits[k+1] - 1] and
 y[curve_limits[k]] == y[curve_limits[k+1] - 1].
 */
-void devernay(double ** x, double ** y, int * N, int ** curve_limits,int * M,
-	uchar * image, uchar * gauss, int X, int Y, double sigma, double th_h, double th_l)
+//void devernay(double ** x, double ** y, int * N, int ** curve_limits,int * M,
+//	uchar * image, uchar * gauss, int X, int Y, double sigma, double th_h, double th_l)
+//{
+//	double * Gx = (double *)xmalloc(X * Y * sizeof(double));     /* grad_x */
+//	double * Gy = (double *)xmalloc(X * Y * sizeof(double));     /* grad_y */
+//	double * modG = (double *)xmalloc(X * Y * sizeof(double));   /* |grad| */
+//	double * Ex = (double *)xmalloc(X * Y * sizeof(double));     /* edge_x */
+//	double * Ey = (double *)xmalloc(X * Y * sizeof(double));     /* edge_y */
+//	int * next = (int *)xmalloc(X * Y * sizeof(int));			 /* next point in chain */
+//	int * prev = (int *)xmalloc(X * Y * sizeof(int));			 /* prev point in chain */
+//
+//	if (sigma == 0.0) compute_gradient(Gx, Gy, modG, image, X, Y);
+//	else
+//	{
+//		gaussian_filter(image, gauss, X, Y, sigma);
+//		compute_gradient(Gx, Gy, modG, gauss, X, Y);
+//	}
+//
+//	compute_edge_points(Ex, Ey, modG, Gx, Gy, X, Y);
+//
+//	chain_edge_points(next, prev, Ex, Ey, Gx, Gy, X, Y);
+//
+//	thresholds_with_hysteresis(next, prev, modG, X, Y, th_h, th_l);
+//
+//	list_chained_edge_points(x, y, N, curve_limits, M, next, prev, Ex, Ey, X, Y);
+//
+//	/* free memory */
+//	free((void *)Gx);
+//	free((void *)Gy);
+//	free((void *)modG);
+//	free((void *)Ex);
+//	free((void *)Ey);
+//	free((void *)next);
+//	free((void *)prev);
+//}
+
+void ndevernay(double** x, double** y, int* N, int** curve_limits, int* M,
+	uchar* image, uchar* gauss, int X, int Y, double sigma, double th_h, double th_l)
 {
-	double * Gx = (double *)xmalloc(X * Y * sizeof(double));     /* grad_x */
-	double * Gy = (double *)xmalloc(X * Y * sizeof(double));     /* grad_y */
-	double * modG = (double *)xmalloc(X * Y * sizeof(double));   /* |grad| */
-	double * Ex = (double *)xmalloc(X * Y * sizeof(double));     /* edge_x */
-	double * Ey = (double *)xmalloc(X * Y * sizeof(double));     /* edge_y */
-	int * next = (int *)xmalloc(X * Y * sizeof(int));			 /* next point in chain */
-	int * prev = (int *)xmalloc(X * Y * sizeof(int));			 /* prev point in chain */
+	double* Gx = new double[X * Y];
+	double* Gy = new double[X * Y];
+	double* modG = new double[X * Y];
+	double* Ex = new double[X * Y];
+	double* Ey = new double[X * Y];
+	int* next = new int[X * Y];
+	int* prev = new int[X * Y];
 
 	if (sigma == 0.0) compute_gradient(Gx, Gy, modG, image, X, Y);
 	else
@@ -638,17 +670,14 @@ void devernay(double ** x, double ** y, int * N, int ** curve_limits,int * M,
 
 	list_chained_edge_points(x, y, N, curve_limits, M, next, prev, Ex, Ey, X, Y);
 
-	/* free memory */
-	free((void *)Gx);
-	free((void *)Gy);
-	free((void *)modG);
-	free((void *)Ex);
-	free((void *)Ey);
-	free((void *)next);
-	free((void *)prev);
+	delete[] Gx;
+	delete[] Gy;
+	delete[] modG;
+	delete[] Ey;
+	delete[] Ex;
+	delete[] next;
+	delete[] prev;
 }
-
-
 
 
 ////---------²Î¿¼----------

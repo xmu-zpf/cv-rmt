@@ -8,7 +8,7 @@
 #include <opencv2/highgui.hpp>  
 
 void error(const char * msg);
-void * xmalloc(size_t size);
+//void * xmalloc(size_t size);
 int wgreater(double a, double b);
 double dist(double x1, double y1, double x2, double y2);
 void gaussian_kernel(double * kernel, int n, double sigma, double mean);
@@ -23,8 +23,8 @@ void thresholds_with_hysteresis(int * next, int * prev,
 	double * modG, int X, int Y, double th_h, double th_l);
 void list_chained_edge_points(double ** x, double ** y, int * N,int ** curve_limits, 
 	int * M,int * next, int * prev,	double * Ex, double * Ey, int X, int Y);
-void devernay(double ** x, double ** y, int * N, int ** curve_limits, int * M,
-	uchar * image, uchar * gauss, int X, int Y, double sigma, double th_h, double th_l);
+void ndevernay(double** x, double** y, int* N, int** curve_limits, int* M,
+	uchar* image, uchar* gauss, int X, int Y, double sigma, double th_h, double th_l);
 
 ////---------
 //void GetGuassFilter(double* pfGaussFilter, const int iFilterHeight, const int iFilterWidth, const double fSigma);

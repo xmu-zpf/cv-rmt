@@ -24,14 +24,14 @@ static void error(const char * msg)
 /*----------------------------------------------------------------------------*/
 /* memory allocation, print an error and exit if fail
 */
-static void * xmalloc(size_t size)
-{
-	void * p;
-	if (size == 0) throw("xmalloc input: zero size");
-	p = malloc(size);
-	if (p == NULL) throw("out of memory");
-	return p;
-}
+//static void * xmalloc(size_t size)
+//{
+//	void * p;
+//	if (size == 0) throw("xmalloc input: zero size");
+//	p = malloc(size);
+//	if (p == NULL) throw("out of memory");
+//	return p;
+//}
 
 /* open file, print an error and exit if fail
 */
@@ -92,7 +92,7 @@ double * read_pgm_image(char * name, int * X, int * Y)
 {
 	FILE * f;
 	int i, n, depth, bin = FALSE;
-	double * image;
+	double* image = new double[*X * *Y];
 
 	/* open file */
 	f = xfopen(name, "rb"); /* open to read as a binary file (b option). otherwise,
@@ -114,9 +114,6 @@ double * read_pgm_image(char * name, int * X, int * Y)
 	/* white before data */
 	if (!isspace(getc(f))) error("corrupted PGM file.");
 
-	/* get memory */
-	image = (double *)xmalloc(*X * *Y * sizeof(double));
-
 	/* read data */
 	for (i = 0; i<(*X * *Y); i++)
 		image[i] = (double)(bin ? getc(f) : get_num(f));
@@ -136,7 +133,6 @@ double * read_asc_file(char * name, int * X, int * Y)
 	FILE * f;
 	int i, n, Z, C;
 	double val;
-	double * image;
 
 	/* open file */
 	f = xfopen(name, "rb"); /* open to read as a binary file (b option). otherwise,
@@ -150,7 +146,7 @@ double * read_asc_file(char * name, int * X, int * Y)
 	if (Z != 1 || C != 1) error("only single channel ASC files are handled");
 
 	/* get memory */
-	image = (double *)xmalloc(*X * *Y * Z * C * sizeof(double));
+	double* image = new double[*X * *Y * Z * C];
 
 	/* read data */
 	for (i = 0; i<(*X * *Y * Z * C); i++)
