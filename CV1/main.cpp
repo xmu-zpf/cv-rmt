@@ -124,8 +124,6 @@ int main()
 
         GenContourRegionXld(ho_binImg, &ho_Contours, "border");
 
-        CountSeconds(&hv_t1);
-
         auto t1_st = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 3, 2, &hv_Row, &hv_Column,
             &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
@@ -137,9 +135,6 @@ int main()
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
 
         //imshow_ha("jieguo", ho_ContEllipse);
-
-        CountSeconds(&hv_t2);
-        hv_elapsed = hv_t2 - hv_t1;
 
        /* if (HDevWindowStack::IsOpen())
             SetColor(HDevWindowStack::GetActive(), "green");*/
