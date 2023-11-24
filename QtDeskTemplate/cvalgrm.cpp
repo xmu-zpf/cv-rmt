@@ -5,9 +5,9 @@ namespace my {
     {
         // Thresholding the gray image
         cv::Mat binaryImage;
-        cv::threshold(grayImage, binaryImage, 0, 255, cv::THRESH_BINARY);
+        cv::threshold(grayImage, binaryImage, 0, 255.0, cv::THRESH_BINARY);
         // Find contours in the binary image
-        std::vector<std::vector<cv::Point>> contours;
+        std::vector<std::vector<cv::Point2f>> contours;
         cv::findContours(binaryImage, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 
         // Find the largest contour

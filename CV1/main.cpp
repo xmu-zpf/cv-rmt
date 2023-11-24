@@ -36,7 +36,7 @@ wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
 
 int main()
 {
-	cv::Mat img = cv::imread(my::GetFileName("选择一个",L"D:\\TestSet\\"), cv::IMREAD_GRAYSCALE);
+	cv::Mat img = cv::imread(my::GetFileName("选择一个",L"D:\\TestSet\\"), cv::IMREAD_GRAYSCALE | CV_32F);
 	cv::imshow("1", img);
 	cv::waitKey();
 
