@@ -81,7 +81,7 @@ int main()
 	vector<int> compression_params;
 	compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);  
 	compression_params.push_back(0); 
-	cv::imwrite("D:\\TestSet\\SPCrslt\\Out.png", srcImage);
+	cv::imwrite("D:\\TestSet\\SPCrslt\\Out.png", srcImage, compression_params);
 
 	return 0;
 }

@@ -8,6 +8,8 @@
 #include <tchar.h>
 #include <chrono>
 
+#include <windows.h>
+
 using namespace HalconCpp;
 
 using Himg = HImage;
@@ -91,6 +93,15 @@ cv::Mat HImageToMat(const HalconCpp::HImage& hImg) {
 cv::Mat HObjectToMat(const HalconCpp::HObject& hObj) {
     HalconCpp::HImage hImg(hObj);
     return HImageToMat(hImg);
+}
+
+cv::Scalar randomColor(void)
+{
+    SYSTEMTIME sys;
+    GetLocalTime(&sys);
+    cv::RNG rng(sys.wMilliseconds);
+    int icolor = (unsigned)rng;
+    return cv::Scalar(icolor & 255, (icolor >> 8) & 255, (icolor >> 16) & 255);
 }
 
 int main()
@@ -180,14 +191,45 @@ int main()
             xldContours.push_back(Contour);
             std::cout << Contour << std::endl;
         }
-        
 
-        auto t1_st = std::chrono::high_resolution_clock::now();
+        // Find the largest contour
+        //auto largestContour = xldContours[0];
+        //for (const auto& iter: xldContours)
+        //{
+        //    if (iter.size()>largestContour.size())
+        //        largestContour = iter;
+        //}
+
+        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\2wbn1.png");
+        cv::imshow("src", srcImage);
+        cv::waitKey();
+
+        std::cout << xldContours.size() << std::endl;
+        unsigned char B = 255, G = 0, R = 255;
+        for(const auto& iter:xldContours)
+        {
+            auto t1_st = std::chrono::high_resolution_clock::now();
+            cv::RotatedRect ellipse = cv::fitEllipse(iter);
+            auto t1_ed = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duration = t1_ed - t1_st;
+            std::cout << "\ncall from cv:" << duration << std::endl;
+            cv::ellipse(srcImage, ellipse, cv::Scalar(B,G,R), 2, cv::LineTypes::LINE_AA);
+            cv::imshow("rslt", srcImage);
+            cv::waitKey();
+            G += 40, R -= 30, B -= 30;
+        }
+
+        std::vector<int> compression_params;
+        compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
+        compression_params.push_back(0);
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld.png", srcImage, compression_params);
+
+        auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
             &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
-        auto t1_ed = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duration = t1_ed - t1_st;
-        std::cout << "\ncall from algm:" << duration << std::endl;
+        auto t1_ed2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration2 = t1_ed2 - t1_st2;
+        std::cout << "\ncall from halcon:" << duration2 << std::endl;
 
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
