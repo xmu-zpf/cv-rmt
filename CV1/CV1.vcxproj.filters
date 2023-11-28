@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="资源文件\zh">
+      <UniqueIdentifier>{a764625e-e23c-4e0a-9ac5-391e1ff8fe80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\rslt">
+      <UniqueIdentifier>{6f4eac68-a373-4468-9f95-6d97967ebff7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CVmain.cpp">
@@ -24,5 +30,74 @@
     <ClCompile Include="fit ellipse.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TestSet\椭圆1.psd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\TestSet\椭圆2.psd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\TestSet\SPCrslt\Out.pdf">
+      <Filter>资源文件\rslt</Filter>
+    </None>
+    <None Include="..\TestSet\SPCrslt\Out2.pdf">
+      <Filter>资源文件\rslt</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\TestSet\椭圆1_白黑.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\椭圆2_白黑_干扰1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\椭圆2_白黑_干扰2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\椭圆2_白黑_干扰3.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\椭圆2_黑白_中.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\椭圆3_黑白_多个1_干扰1.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\TestSet\zh\1wb.png">
+      <Filter>资源文件\zh</Filter>
+    </Image>
+    <Image Include="..\TestSet\zh\2wbn1.png">
+      <Filter>资源文件\zh</Filter>
+    </Image>
+    <Image Include="..\TestSet\zh\2wbn2.png">
+      <Filter>资源文件\zh</Filter>
+    </Image>
+    <Image Include="..\TestSet\zh\2wbn3.png">
+      <Filter>资源文件\zh</Filter>
+    </Image>
+    <Image Include="..\TestSet\zh\3wbm1n1.png">
+      <Filter>资源文件\zh</Filter>
+    </Image>
+    <Image Include="..\TestSet\SPCrslt\Out.png">
+      <Filter>资源文件\rslt</Filter>
+    </Image>
+    <Image Include="..\TestSet\SPCrslt\Out_xld.png">
+      <Filter>资源文件\rslt</Filter>
+    </Image>
+    <Image Include="..\TestSet\SPCrslt\Out_xld2.png">
+      <Filter>资源文件\rslt</Filter>
+    </Image>
+    <Image Include="..\TestSet\SPCrslt\Out2.png">
+      <Filter>资源文件\rslt</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\TestSet\SPCrslt\Out.txt">
+      <Filter>资源文件\rslt</Filter>
+    </Text>
+    <Text Include="..\TestSet\SPCrslt\Out2.txt">
+      <Filter>资源文件\rslt</Filter>
+    </Text>
   </ItemGroup>
 </Project>

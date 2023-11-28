@@ -151,6 +151,33 @@
     <ClCompile Include="fit ellipse.cpp" />
     <ClCompile Include="CVmain.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TestSet\SPCrslt\Out.pdf" />
+    <None Include="..\TestSet\SPCrslt\Out2.pdf" />
+    <None Include="..\TestSet\椭圆1.psd" />
+    <None Include="..\TestSet\椭圆2.psd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\TestSet\SPCrslt\Out.png" />
+    <Image Include="..\TestSet\SPCrslt\Out2.png" />
+    <Image Include="..\TestSet\SPCrslt\Out_xld.png" />
+    <Image Include="..\TestSet\SPCrslt\Out_xld2.png" />
+    <Image Include="..\TestSet\zh\1wb.png" />
+    <Image Include="..\TestSet\zh\2wbn1.png" />
+    <Image Include="..\TestSet\zh\2wbn2.png" />
+    <Image Include="..\TestSet\zh\2wbn3.png" />
+    <Image Include="..\TestSet\zh\3wbm1n1.png" />
+    <Image Include="..\TestSet\椭圆1_白黑.png" />
+    <Image Include="..\TestSet\椭圆2_白黑_干扰1.png" />
+    <Image Include="..\TestSet\椭圆2_白黑_干扰2.png" />
+    <Image Include="..\TestSet\椭圆2_白黑_干扰3.png" />
+    <Image Include="..\TestSet\椭圆2_黑白_中.png" />
+    <Image Include="..\TestSet\椭圆3_黑白_多个1_干扰1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\TestSet\SPCrslt\Out.txt" />
+    <Text Include="..\TestSet\SPCrslt\Out2.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
