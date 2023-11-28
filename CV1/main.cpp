@@ -71,7 +71,7 @@ cv::Mat HImageToMat(const HalconCpp::HImage& hImg) {
         mat.create(int(hH), int(hW), CV_8UC1);
         memcpy(mat.data, static_cast<unsigned char*>(r), int(hW * hH));
     }
-    else if (channels == 3) {
+    else if (channels == 3) { 
         void* r = NULL, * g = NULL, * b = NULL;
 
         hImage.GetImagePointer3(&r, &g, &b, &cType, &hW, &hH);
@@ -200,7 +200,7 @@ int main()
         //        largestContour = iter;
         //}
 
-        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\2wbn1.png");
+        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\3wbm1n1.png");
         cv::imshow("src", srcImage);
         cv::waitKey();
 
@@ -222,7 +222,7 @@ int main()
         std::vector<int> compression_params;
         compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
         compression_params.push_back(0);
-        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld.png", srcImage, compression_params);
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, compression_params);
 
         auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,

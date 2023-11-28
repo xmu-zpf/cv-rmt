@@ -23,7 +23,7 @@ int main()
 {
 	Mat srcImage, grayImage, dstImage;
 	//srcImage = imread(my::GetFileName("Ñ¡ÔñÎÄ¼þ", L"D:\\TestSet\\"));
-	srcImage = imread("D:\\TestSet\\zh\\2wbn1.png");
+	srcImage = imread("D:\\TestSet\\zh\\3wbm1n1.png");
 	if (srcImage.empty())
 	{
 		cout << "load error!" << endl;
@@ -39,8 +39,8 @@ int main()
 	double H = 4.2; /* default th_h=0  */
 	double L = 0.81; /* default th_l=0  */
 	double W = 1.0; /* default W=1.3   */
-	char pdf_out[]( "D:\\TestSet\\SPCrslt\\Out.pdf" );  /*pdf filename*/
-	char txt_out[]{ "D:\\TestSet\\SPCrslt\\Out.txt" };
+	char pdf_out[]( "D:\\TestSet\\SPCrslt\\Out2.pdf" );  /*pdf filename*/
+	char txt_out[]{ "D:\\TestSet\\SPCrslt\\Out2.txt" };
 
 	cvtColor(srcImage, grayImage, COLOR_BGR2GRAY);
 	dstImage = grayImage;
@@ -63,17 +63,19 @@ int main()
 		cvContours.push_back(cvContour);
 	}
 
-#ifdef _CONSOLE
-	auto t1_st = std::chrono::high_resolution_clock::now();
-#endif // _CONSOLE
-	cv::RotatedRect ellipse = cv::fitEllipse(cvContours[3]);
-#ifdef _CONSOLE
-	auto t1_ed = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> duration = t1_ed - t1_st;
-	std::cout << "\ncall from algm:" << duration << std::endl;
-#endif // _CONSOLE
+	unsigned char R = 0, G = 0, B = 0;
+	for(const auto& iter:cvContours)
+	{
+		auto t1_st = std::chrono::high_resolution_clock::now();
+		cv::RotatedRect ellipse = cv::fitEllipse(iter);
+		auto t1_ed = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> duration = t1_ed - t1_st;
+		std::cout << "\ncall from algm:" << duration << std::endl;
+		cv::ellipse(srcImage, ellipse, cv::Scalar(B, G, R), 2, cv::LineTypes::LINE_AA);
+		B += 50; G += 100; B += 70;
+	}
 
-	cv::ellipse(srcImage, ellipse, cv::Scalar(0, 255, 0), 2, cv::LineTypes::LINE_AA);
+	
 
 	imshow("rslt", srcImage);
 	waitKey();
@@ -81,7 +83,7 @@ int main()
 	vector<int> compression_params;
 	compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);  
 	compression_params.push_back(0); 
-	cv::imwrite("D:\\TestSet\\SPCrslt\\Out.png", srcImage, compression_params);
+	cv::imwrite("D:\\TestSet\\SPCrslt\\Out2.png", srcImage, compression_params);
 
 	return 0;
 }
