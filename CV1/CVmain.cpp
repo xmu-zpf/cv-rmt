@@ -171,6 +171,15 @@ int main()
 
         GenContourRegionXld(ho_binImg, &ho_Contours, "border");
 
+        HTuple width, height;
+        HalconCpp::GetImageSize(ho_OriginImg, &width, &height);  
+        HWindow w(0, 0, width, height);                   
+        w.SetWindowParam("window_title", "xld region");
+        ho_Contours.DispObj(w);
+        //HTuple  HWindow;
+        //OpenWindow(0, 0, 400, -1, "root", "visible", "", &HWindow);
+        //DispXld(ho_Contours, HWindow);
+
         std::vector<std::vector<cv::Point2f>> xldContours;
         HTuple numContours;
         CountObj(ho_Contours, &numContours);
@@ -189,7 +198,7 @@ int main()
                 Contour.push_back(cv::Point2f(column[j].D(), row[j].D()));
             }
             xldContours.push_back(Contour);
-            std::cout << Contour << std::endl;
+            /*std::cout << Contour << std::endl;*/
         }
 
         // Find the largest contour

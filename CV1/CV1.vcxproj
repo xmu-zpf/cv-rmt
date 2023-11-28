@@ -149,7 +149,7 @@
   <ItemGroup>
     <ClCompile Include="..\QtDeskTemplate\cvalgrm.cpp" />
     <ClCompile Include="fit ellipse.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CVmain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

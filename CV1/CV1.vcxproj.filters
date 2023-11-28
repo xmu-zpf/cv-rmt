@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="CVmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\QtDeskTemplate\cvalgrm.cpp">
