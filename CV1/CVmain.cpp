@@ -176,6 +176,11 @@ int main()
         HWindow w(0, 0, width, height);                   
         w.SetWindowParam("window_title", "xld region");
         ho_Contours.DispObj(w);
+
+        HWindow w3(0, 0, width, height);
+        w3.SetWindowParam("window_title", "xld region1");
+        ho_Contours[1].DispObj(w3);
+
         //HTuple  HWindow;
         //OpenWindow(0, 0, 400, -1, "root", "visible", "", &HWindow);
         //DispXld(ho_Contours, HWindow);
@@ -221,9 +226,9 @@ int main()
             cv::RotatedRect ellipse = cv::fitEllipse(iter);
             auto t1_ed = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration = t1_ed - t1_st;
-            std::cout << "\ncall from cv:" << duration << std::endl;
+            //std::cout << "\ncall from cv:" << duration << std::endl;
             cv::ellipse(srcImage, ellipse, cv::Scalar(B,G,R), 2, cv::LineTypes::LINE_AA);
-            cv::imshow("rslt", srcImage);
+            cv::imshow("CV rslt", srcImage);
             //cv::waitKey();
             G += 40, R -= 30, B -= 30;
         }
@@ -234,18 +239,20 @@ int main()
         cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, compression_params);
 
         auto t1_st2 = std::chrono::high_resolution_clock::now();
-        FitEllipseContourXld(ho_Contours, "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
+        FitEllipseContourXld(ho_Contours[1], "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
             &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
         auto t1_ed2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration2 = t1_ed2 - t1_st2;
         std::cout << "\ncall from halcon:" << duration2 << std::endl;
 
+
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
 
-        HWindow w2(0, 0, width, height);
-        w2.SetWindowParam("window_title", "ellipse region");
-        ho_Contours.DispObj(w2);
+        HWindow w4(0, 0, width, height);
+        w4.SetWindowParam("window_title", "ellipse region rslt");
+        ho_Contours.DispObj(w4);
+        
 
         cv::waitKey();
 
