@@ -7,12 +7,15 @@
 #include <codecvt>
 #include <tchar.h>
 #include <chrono>
+#include "imgalgm.h"
 
 #include <windows.h>
 
 using namespace HalconCpp;
 
 using Himg = HImage;
+
+constexpr std::vector<int> CVPNG_NO_COMPRESSION{ cv::IMWRITE_PNG_COMPRESSION ,0 };
 
 wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
 {
@@ -233,10 +236,8 @@ int main()
             G += 40, R -= 30, B -= 30;
         }
 
-        std::vector<int> compression_params;
-        compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
-        compression_params.push_back(0);
-        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, compression_params);
+
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, CVPNG_NO_COMPRESSION);
 
         auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours[1], "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
@@ -251,7 +252,7 @@ int main()
 
         HWindow w4(0, 0, width, height);
         w4.SetWindowParam("window_title", "ellipse region rslt");
-        ho_Contours.DispObj(w4);
+        ho_ContEllipse.DispObj(w4);
         
 
         cv::waitKey();

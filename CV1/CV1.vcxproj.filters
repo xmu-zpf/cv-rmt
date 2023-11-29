@@ -20,5 +20,13 @@
     <ClCompile Include="fit ellipse.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="imgalgm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imgalgm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

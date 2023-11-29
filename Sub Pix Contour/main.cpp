@@ -71,7 +71,7 @@ int main()
 		auto t1_ed = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> duration = t1_ed - t1_st;
 		std::cout << "\ncall from algm:" << duration << std::endl;
-		cv::ellipse(srcImage, ellipse, cv::Scalar(B, G, R), 2, cv::LineTypes::LINE_AA);
+		cv::ellipse(srcImage, ellipse, cv::Scalar(B, G, R), 1, cv::LineTypes::LINE_AA);
 		B += 50; G += 100; B += 70;
 	}
 
