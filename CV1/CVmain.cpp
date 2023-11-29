@@ -224,7 +224,7 @@ int main()
             std::cout << "\ncall from cv:" << duration << std::endl;
             cv::ellipse(srcImage, ellipse, cv::Scalar(B,G,R), 2, cv::LineTypes::LINE_AA);
             cv::imshow("rslt", srcImage);
-            cv::waitKey();
+            //cv::waitKey();
             G += 40, R -= 30, B -= 30;
         }
 
@@ -242,6 +242,12 @@ int main()
 
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
+
+        HWindow w2(0, 0, width, height);
+        w2.SetWindowParam("window_title", "ellipse region");
+        ho_Contours.DispObj(w2);
+
+        cv::waitKey();
 
         //imshow_ha("jieguo", ho_ContEllipse);
 
