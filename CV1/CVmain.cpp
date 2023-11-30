@@ -15,8 +15,6 @@ using namespace HalconCpp;
 
 using Himg = HImage;
 
-constexpr std::vector<int> CVPNG_NO_COMPRESSION{ cv::IMWRITE_PNG_COMPRESSION ,0 };
-
 wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
 {
     OPENFILENAME ofn;
@@ -37,29 +35,6 @@ wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
         return fileName;
     }
     return nullptr;
-}
-
-/************************************
-Í¼ÏñÏÔÊ¾£ºtcy shanghai 2021/3/17  V1.0
-*************************************/
-#define __imshow_ha__(winname,image)                  \
-{                                                     \
-	HTuple width, height;                             \
-	                                                  \
-	HalconCpp::GetImageSize(image, &width, &height);  \
-	HWindow w(0, 0, width, height);                   \
-	w.SetWindowParam("window_title", winname.c_str());\
-	                                                  \
-	image.DispObj(w);                                 \
-	w.Click();                                        \
-	w.ClearWindow();                                  \
-}
-
-void imshow_ha(std::string winname, const HalconCpp::HObject& image) {
-    __imshow_ha__(winname, image);
-}
-void imshow_ha(std::string winname, const HalconCpp::HImage& image) {
-    __imshow_ha__(winname, image);
 }
 
 cv::Mat HImageToMat(const HalconCpp::HImage& hImg) {
@@ -158,6 +133,7 @@ int main()
         // Local iconic variables
         HObject  ho_OriginImg, ho_GrayImage, ho_binImg;
         HObject  ho_Contours, ho_ContEllipse;
+        HImage img;
 
         // Local control variables
         HTuple  hv_SlctdImgPath, hv_t1, hv_Row, hv_Column;
@@ -166,7 +142,7 @@ int main()
 
         // dev_open_file_dialog(...); only in hdevelop
         ReadImage(&ho_OriginImg, wGetFileName("Ñ¡ÔñÍ¼Ïñ", L"D:\\TestSet\\"));
-        imshow_ha("tuxiang", ho_OriginImg);
+        my::imshow_ha("tuxiang", ho_OriginImg);
 
         Rgb1ToGray(ho_OriginImg, &ho_GrayImage);
 
@@ -176,17 +152,14 @@ int main()
 
         HTuple width, height;
         HalconCpp::GetImageSize(ho_OriginImg, &width, &height);  
-        HWindow w(0, 0, width, height);                   
-        w.SetWindowParam("window_title", "xld region");
-        ho_Contours.DispObj(w);
 
-        HWindow w3(0, 0, width, height);
-        w3.SetWindowParam("window_title", "xld region1");
-        ho_Contours[1].DispObj(w3);
+        my::hwindow xldw{ ho_OriginImg ,"xld region" };
+        xldw.show(ho_Contours);
+        xldw.click();
 
-        //HTuple  HWindow;
-        //OpenWindow(0, 0, 400, -1, "root", "visible", "", &HWindow);
-        //DispXld(ho_Contours, HWindow);
+        my::hwindow xldw1{ ho_OriginImg ,"xld region_1" };
+        xldw1.show(ho_Contours[1]);
+        xldw1.click();
 
         std::vector<std::vector<cv::Point2f>> xldContours;
         HTuple numContours;
@@ -237,7 +210,7 @@ int main()
         }
 
 
-        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, CVPNG_NO_COMPRESSION);
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, my::CVPNG_NO_COMPRESSION);
 
         auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours[1], "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
@@ -250,12 +223,9 @@ int main()
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
 
-        HWindow w4(0, 0, width, height);
-        w4.SetWindowParam("window_title", "ellipse region rslt");
-        ho_ContEllipse.DispObj(w4);
-        
-
-        cv::waitKey();
+        my::hwindow ellipsew{ ho_OriginImg ,"hal_rslt" };
+        ellipsew.show(ho_ContEllipse);
+        ellipsew.click();
 
         //imshow_ha("jieguo", ho_ContEllipse);
 
