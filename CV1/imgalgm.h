@@ -15,7 +15,7 @@ namespace my {
 
 	const std::vector<int> CVPNG_NO_COMPRESSION{ cv::IMWRITE_PNG_COMPRESSION ,0 };
 
-	void imshow_ha(std::string winname, const HalconCpp::HObject& image);
+	void imshow_ha(std::string winname, const HalconCpp::HObject& Hobj);
 	void imshow_ha(std::string winname, const HalconCpp::HImage& image);
 	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath);
 	template<typename T> requires PointCVpt2f<T>|| PointCVpt2i<T>

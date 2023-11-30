@@ -62,49 +62,6 @@ cv::Scalar randomColor(void)
 
 int main()
 {
-	//cv::Mat img = cv::imread("D:\\TestSet\\zh\\2wbn1.png", cv::IMREAD_GRAYSCALE | CV_32F);
-	//cv::imshow("1", img);
-	//cv::waitKey();
-
-    //std::vector<std::vector<cv::Point2d>> contours;
-    //cv::findContours(img, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
-
-    //int maxindex = 0;
-    //for (int i = 0; i < contours.size(); ++i)
-    //{
-    //    if (contours[i].size() > contours[maxindex].size())
-    //        maxindex = i;
-    //}
-    //auto& mcontour = contours[maxindex];
-
-    //auto ellipseRRTC =  my::fitEllipseHalcon(img);
-    //cv::Mat RsltImg = my::drawEllipseOnImage(img, ellipseRRTC);
-
- //   auto t1_st = std::chrono::high_resolution_clock::now();
- //   auto rslt = my::fitEllipseHalcon(img);
- //   auto t1_ed = std::chrono::high_resolution_clock::now();
- //   std::chrono::duration<double> duration = t1_ed - t1_st;
- //   std::cout << duration << std::endl;
-	//cv::Mat ellipsimg = my::drawEllipseOnImage(img, rslt);
-	//cv::imshow("rslt", RsltImg);
-	//cv::waitKey();
-	//Himg himg("bytr", img.cols, img.rows, img.data);
-    //try
-    //{
-    //    Himg himg;
-    //    HTuple HWind;
-    //    HTuple  Width, Height;
-    //    himg.ReadImage("D:\\TestSet\\zh\\2wbn1.png");
-    //    OpenWindow(10, 10, Width, Height, 0, "visible", "", &HWind);
-    //    HalconCpp::DispImage(himg, HWind);
-    //}
-
-
-//    catch (HException& HDevExpDefaultException)
-//{
-//    // Error handling
-//    printf("%s\n", HDevExpDefaultException.ErrorMessage().Text());
-//}
     try
     {
         
@@ -144,16 +101,10 @@ int main()
         CountObj(ho_Contours, &numContours);
         for (int i = 1; i < numContours.I(); i++)
         {
-            std::vector<cv::Point2f> Contour;
             HObject singleContour;
-            SelectObj(ho_Contours, &singleContour, i);
-            HTuple row, column;
-            GetContourXld(singleContour, &row, &column);
-            int num_points = row.Length();
-            Contour.reserve(num_points);
-            
+            SelectObj(ho_Contours, &singleContour, i);     
             xldContours.push_back(my::Hxld2CVpt<cv::Point2f>(singleContour));
-            /*std::cout << Contour << std::endl;*/
+            /*std::cout << xldContours[i] << std::endl;*/
         }
 
         // Find the largest contour
@@ -193,18 +144,17 @@ int main()
         cv::imshow("cv_rslt", srcImage);
         cv::waitKey();
 
-        //cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, my::CVPNG_NO_COMPRESSION);
-
         auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours[1], "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
             &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
         auto t1_ed2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration2 = t1_ed2 - t1_st2;
         std::cout << "\ncall from halcon:" << duration2 << std::endl;
-
-
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
-            hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
+            hv_StartPhi, hv_EndPhi, hv_PointOrder, 1);
+        my::hwindow ellipsew{ ho_OriginImg ,"hal_rslt" };
+        ellipsew.show(ho_ContEllipse);
+        ellipsew.click();
 
         cv::Mat frmH(srcImage.rows, srcImage.cols, CV_8UC3, cv::Scalar(0, 0, 0));
         std::vector<cv::Point2f> xldEllipsecont = my::Hxld2CVpt<cv::Point2f>(ho_ContEllipse);
@@ -212,19 +162,10 @@ int main()
         {
             srcImage.at<cv::Vec3b>(iter) = cv::Vec3b{ 0,0,255 };
         }
-
-
         cv::imshow("cv_hal_rslt", srcImage);
         
-        //for(size_t i=0;i< srcImage.rows;++i)
-        //    for (size_t j = 0; j < srcImage.cols; ++j)
-        //    {
-        //        
-        //    }
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_cv+hal_resualt_1.png", srcImage, my::CVPNG_NO_COMPRESSION);
 
-        my::hwindow ellipsew{ ho_OriginImg ,"hal_rslt" };
-        ellipsew.show(ho_ContEllipse);
-        ellipsew.click();
 
         //imshow_ha("jieguo", ho_ContEllipse);
     }
