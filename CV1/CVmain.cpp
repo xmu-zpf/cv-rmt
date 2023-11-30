@@ -151,12 +151,8 @@ int main()
             GetContourXld(singleContour, &row, &column);
             int num_points = row.Length();
             Contour.reserve(num_points);
-
-            // 将Halcon的点坐标转换为cv::Point2f
-            for (int j = 0; j < num_points; j++) {
-                Contour.push_back(cv::Point2f(column[j].D(), row[j].D()));
-            }
-            xldContours.push_back(Contour);
+            
+            xldContours.push_back(my::Hxld2CVpt<cv::Point2f>(singleContour));
             /*std::cout << Contour << std::endl;*/
         }
 
@@ -170,6 +166,7 @@ int main()
 
         cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\3wbm1n1.png");
         cv::imshow("src", srcImage);
+        
         cv::waitKey();
 
         std::cout << xldContours.size() << std::endl;
@@ -192,7 +189,7 @@ int main()
         auto t1_ed = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = t1_ed - t1_st;
         std::cout << "\ncall from cv:" << duration << std::endl;
-        cv::ellipse(srcImage, ellipse1, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_AA);
+        cv::ellipse(srcImage, ellipse1, cv::Scalar(0, 255, 0), 2, cv::LineTypes::LINE_AA);
         cv::imshow("cv_rslt", srcImage);
         cv::waitKey();
 
@@ -208,6 +205,22 @@ int main()
 
         GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
             hv_StartPhi, hv_EndPhi, hv_PointOrder, 1.5);
+
+        cv::Mat frmH(srcImage.rows, srcImage.cols, CV_8UC3, cv::Scalar(0, 0, 0));
+        std::vector<cv::Point2f> xldEllipsecont = my::Hxld2CVpt<cv::Point2f>(ho_ContEllipse);
+        for (const auto& iter : xldEllipsecont)
+        {
+            srcImage.at<cv::Vec3b>(iter) = cv::Vec3b{ 0,0,255 };
+        }
+
+
+        cv::imshow("cv_hal_rslt", srcImage);
+        
+        //for(size_t i=0;i< srcImage.rows;++i)
+        //    for (size_t j = 0; j < srcImage.cols; ++j)
+        //    {
+        //        
+        //    }
 
         my::hwindow ellipsew{ ho_OriginImg ,"hal_rslt" };
         ellipsew.show(ho_ContEllipse);
