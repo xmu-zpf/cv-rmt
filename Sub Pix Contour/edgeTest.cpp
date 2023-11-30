@@ -608,42 +608,6 @@ for i determined by curve_limits[k] <= i < curve_limits[k+1].
 curve k is closed if x[curve_limits[k]] == x[curve_limits[k+1] - 1] and
 y[curve_limits[k]] == y[curve_limits[k+1] - 1].
 */
-//void devernay(double ** x, double ** y, int * N, int ** curve_limits,int * M,
-//	uchar * image, uchar * gauss, int X, int Y, double sigma, double th_h, double th_l)
-//{
-//	double * Gx = (double *)xmalloc(X * Y * sizeof(double));     /* grad_x */
-//	double * Gy = (double *)xmalloc(X * Y * sizeof(double));     /* grad_y */
-//	double * modG = (double *)xmalloc(X * Y * sizeof(double));   /* |grad| */
-//	double * Ex = (double *)xmalloc(X * Y * sizeof(double));     /* edge_x */
-//	double * Ey = (double *)xmalloc(X * Y * sizeof(double));     /* edge_y */
-//	int * next = (int *)xmalloc(X * Y * sizeof(int));			 /* next point in chain */
-//	int * prev = (int *)xmalloc(X * Y * sizeof(int));			 /* prev point in chain */
-//
-//	if (sigma == 0.0) compute_gradient(Gx, Gy, modG, image, X, Y);
-//	else
-//	{
-//		gaussian_filter(image, gauss, X, Y, sigma);
-//		compute_gradient(Gx, Gy, modG, gauss, X, Y);
-//	}
-//
-//	compute_edge_points(Ex, Ey, modG, Gx, Gy, X, Y);
-//
-//	chain_edge_points(next, prev, Ex, Ey, Gx, Gy, X, Y);
-//
-//	thresholds_with_hysteresis(next, prev, modG, X, Y, th_h, th_l);
-//
-//	list_chained_edge_points(x, y, N, curve_limits, M, next, prev, Ex, Ey, X, Y);
-//
-//	/* free memory */
-//	free((void *)Gx);
-//	free((void *)Gy);
-//	free((void *)modG);
-//	free((void *)Ex);
-//	free((void *)Ey);
-//	free((void *)next);
-//	free((void *)prev);
-//}
-
 void ndevernay(double** x, double** y, int* N, int** curve_limits, int* M,
 	uchar* image, uchar* gauss, int X, int Y, double sigma, double th_h, double th_l)
 {
