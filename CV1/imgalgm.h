@@ -12,6 +12,8 @@ namespace my {
 
 	void imshow_ha(std::string winname, const HalconCpp::HObject& image);
 	void imshow_ha(std::string winname, const HalconCpp::HImage& image);
+	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath);
+
 
 	class hwindow {
 	public:

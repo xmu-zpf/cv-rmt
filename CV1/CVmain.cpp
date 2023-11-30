@@ -15,28 +15,6 @@ using namespace HalconCpp;
 
 using Himg = HImage;
 
-wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
-{
-    OPENFILENAME ofn;
-    wchar_t* fileName = new wchar_t[200];
-    wchar_t* wtitle = new TCHAR[200](0);
-    my::CharToTchar(title, wtitle);
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lpstrTitle = L"选择文件";
-    ofn.lStructSize = sizeof(OPENFILENAME);
-    ofn.lpstrFilter = L"图像文件\0*.bmp;*.jpg;*.png;*.tif;*.gif;*.jpeg;*.jpe;*.jfif\0All Files\0*.*\0";
-    ofn.lpstrInitialDir = defualtPath;//默认的文件路径 
-    ofn.lpstrFile = fileName;
-    ofn.nMaxFile = MAX_PATH;
-    ofn.lpstrTitle = wtitle;
-    ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_ALLOWMULTISELECT;
-    if (GetOpenFileName(&ofn))
-    {
-        return fileName;
-    }
-    return nullptr;
-}
-
 cv::Mat HImageToMat(const HalconCpp::HImage& hImg) {
     cv::Mat mat;
     int channels = hImg.CountChannels()[0].I();
@@ -141,7 +119,7 @@ int main()
         HTuple  hv_PointOrder, hv_t2, hv_elapsed;
 
         // dev_open_file_dialog(...); only in hdevelop
-        ReadImage(&ho_OriginImg, wGetFileName("选择图像", L"D:\\TestSet\\"));
+        ReadImage(&ho_OriginImg, my::wGetFileName("选择图像", L"D:\\TestSet\\"));
         my::imshow_ha("tuxiang", ho_OriginImg);
 
         Rgb1ToGray(ho_OriginImg, &ho_GrayImage);
@@ -196,21 +174,29 @@ int main()
 
         std::cout << xldContours.size() << std::endl;
         unsigned char B = 255, G = 0, R = 255;
-        for(const auto& iter:xldContours)
-        {
-            auto t1_st = std::chrono::high_resolution_clock::now();
-            cv::RotatedRect ellipse = cv::fitEllipse(iter);
-            auto t1_ed = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> duration = t1_ed - t1_st;
-            //std::cout << "\ncall from cv:" << duration << std::endl;
-            cv::ellipse(srcImage, ellipse, cv::Scalar(B,G,R), 2, cv::LineTypes::LINE_AA);
-            cv::imshow("CV rslt", srcImage);
-            //cv::waitKey();
-            G += 40, R -= 30, B -= 30;
-        }
+        //for(const auto& iter:xldContours)
+        //{
+        //    auto t1_st = std::chrono::high_resolution_clock::now();
+        //    cv::RotatedRect ellipse = cv::fitEllipse(iter);
+        //    auto t1_ed = std::chrono::high_resolution_clock::now();
+        //    std::chrono::duration<double> duration = t1_ed - t1_st;
+        //    //std::cout << "\ncall from cv:" << duration << std::endl;
+        //    cv::ellipse(srcImage, ellipse, cv::Scalar(B,G,R), 2, cv::LineTypes::LINE_AA);
+        //    cv::imshow("CV rslt", srcImage);
+        //    cv::waitKey();
+        //    G += 40, R -= 30, B -= 30;
+        //}
 
+        auto t1_st = std::chrono::high_resolution_clock::now();
+        cv::RotatedRect ellipse1 = cv::fitEllipse(xldContours[0]);
+        auto t1_ed = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = t1_ed - t1_st;
+        std::cout << "\ncall from cv:" << duration << std::endl;
+        cv::ellipse(srcImage, ellipse1, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_AA);
+        cv::imshow("cv_rslt", srcImage);
+        cv::waitKey();
 
-        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, my::CVPNG_NO_COMPRESSION);
+        //cv::imwrite("D:\\TestSet\\SPCrslt\\Out_xld2.png", srcImage, my::CVPNG_NO_COMPRESSION);
 
         auto t1_st2 = std::chrono::high_resolution_clock::now();
         FitEllipseContourXld(ho_Contours[1], "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
@@ -228,26 +214,6 @@ int main()
         ellipsew.click();
 
         //imshow_ha("jieguo", ho_ContEllipse);
-
-       /* if (HDevWindowStack::IsOpen())
-            SetColor(HDevWindowStack::GetActive(), "green");*/
-
-        //// Step 4: 绘制拟合的椭圆
-        //HObject ho_Ellipse;
-        //GenEllipseContourXld(&ho_ContEllipse, hv_Row, hv_Column, hv_Phi, hv_Radius1, hv_Radius2,
-        //    hv_StartPhi, hv_EndPhi, "positive", 1.5);
-        //GetImageSize(ho_GrayImage, &hv_Width, &hv_Height);
-        //SetWindowAttr("background_color", "black");
-        //OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle);
-        //HDevWindowStack::Push(hv_WindowHandle);
-        //if (HDevWindowStack::IsOpen())
-        //    DispObj(ho_SelectedXLD1, HDevWindowStack::GetActive());
-
-        //SetWindowAttr("background_color", "black");
-        //OpenWindow(10, 10, hv_Width, hv_Height, 0, "visible", "", &hv_WindowHandle1);
-        //HDevWindowStack::Push(hv_WindowHandle1);
-        //if (HDevWindowStack::IsOpen())
-        //    DispObj(ho_ContEllipse, HDevWindowStack::GetActive());
     }
     catch (HException& HDevExpDefaultException)
     {

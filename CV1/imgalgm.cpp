@@ -27,6 +27,35 @@ namespace my {
 		__imshow_ha__(winname, image);
 	}
 
+	void CharToTchar(const char* _char, TCHAR* tchar)
+	{
+		int iLength;
+
+		iLength = MultiByteToWideChar(CP_ACP, 0, _char, strlen(_char) + 1, NULL, 0);
+		MultiByteToWideChar(CP_ACP, 0, _char, strlen(_char) + 1, tchar, iLength);
+	}
+	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
+	{
+		OPENFILENAME ofn;
+		wchar_t* fileName = new wchar_t[200];
+		wchar_t* wtitle = new TCHAR[200](0);
+		CharToTchar(title, wtitle);
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lpstrTitle = L"选择文件";
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.lpstrFilter = L"图像文件\0*.bmp;*.jpg;*.png;*.tif;*.gif;*.jpeg;*.jpe;*.jfif\0All Files\0*.*\0";
+		ofn.lpstrInitialDir = defualtPath;//默认的文件路径 
+		ofn.lpstrFile = fileName;
+		ofn.nMaxFile = MAX_PATH;
+		ofn.lpstrTitle = wtitle;
+		ofn.Flags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_ALLOWMULTISELECT;
+		if (GetOpenFileName(&ofn))
+		{
+			return fileName;
+		}
+		return nullptr;
+	}
+
 	hwindow::hwindow(const HTuple width, const HTuple height, const char* title)
 	{
 		w = new HWindow{ 0,0,width,height };
