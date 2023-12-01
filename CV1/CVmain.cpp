@@ -85,7 +85,7 @@ int main()
         //xldw.show(ho_Contours);
         //xldw.click();
 
-        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\3wbm1n1.png");
+        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\3wbm1n1i1.png");
         cv::imshow("src", srcImage);
         cv::waitKey();
 

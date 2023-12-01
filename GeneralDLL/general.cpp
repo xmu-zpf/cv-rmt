@@ -40,6 +40,7 @@ namespace my {
 		return lpcWideStr;
 	}
 
+	
 	HWND _hwndf;
 	//可包含中文
 	std::string GetFileName(const char* title, const wchar_t* defualtPath)

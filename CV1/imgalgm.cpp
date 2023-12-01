@@ -34,6 +34,7 @@ namespace my {
 		iLength = MultiByteToWideChar(CP_ACP, 0, _char, strlen(_char) + 1, NULL, 0);
 		MultiByteToWideChar(CP_ACP, 0, _char, strlen(_char) + 1, tchar, iLength);
 	}
+
 	wchar_t* wGetFileName(const char* title, const wchar_t* defualtPath)
 	{
 		OPENFILENAME ofn;
