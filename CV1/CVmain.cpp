@@ -1,3 +1,4 @@
+#include "imgproc_M.hpp"
 #include <iostream>
 #include <string>
 #include <opencv.hpp>
@@ -85,7 +86,7 @@ int main()
         //xldw.show(ho_Contours);
         //xldw.click();
 
-        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\3wbm1n1i1.png");
+        cv::Mat srcImage = cv::imread("D:\\TestSet\\zh\\4wbm29i4n0.png");
         cv::imshow("src", srcImage);
         cv::waitKey();
 
@@ -110,17 +111,22 @@ int main()
             if (col.Length() < 30)
                 continue;
 
+            std::cout << "[" << i << "]ÂÖÀªµãÊý=" << col.Length() << std::endl;
+
+            cv::RotatedRect ellipse1;
+            cv::Mat points = static_cast<cv::_InputArray>(xldContours[i - 1]).getMat();
             auto t1_st = std::chrono::high_resolution_clock::now();
-            cv::RotatedRect ellipse1 = cv::fitEllipse(xldContours[i-1]);
+            ellipse1 = cv::fitEllipse(xldContours[i-1]);
+            //cv::myfitellipse(points, ellipse1);
             auto t1_ed = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration = t1_ed - t1_st;
-            std::cout << "\ncall from cv:" << duration << std::endl;
+            std::cout << "call from cv:" << duration << std::endl;
             cv::ellipse(srcImage, ellipse1, cv::Scalar(0, 255, 0), 1, cv::LineTypes::LINE_AA);
             //cv::imshow("cv_rslt", srcImage);
             //cv::waitKey();
 
             auto t1_st2 = std::chrono::high_resolution_clock::now();
-            FitEllipseContourXld(singleContour, "fitzgibbon", -1, 2, 0, 200, 4, 2, &hv_Row, &hv_Column,
+            FitEllipseContourXld(singleContour, "fitzgibbon", -1, 2, 0, 200, 5, 2, &hv_Row, &hv_Column,
                 &hv_Phi, &hv_Radius1, &hv_Radius2, &hv_StartPhi, &hv_EndPhi, &hv_PointOrder);
             auto t1_ed2 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> duration2 = t1_ed2 - t1_st2;
@@ -130,6 +136,8 @@ int main()
             //my::hwindow ellipsew{ ho_OriginImg ,"hal_rslt" };
             //ellipsew.show(ho_ContEllipse);
             //ellipsew.click();
+
+            std::cout << "CV time / HALCON time=" << (duration / duration2) << std::endl << std::endl;
 
             for (const auto& iter : my::Hxld2CVpt<cv::Point2f>(ho_ContEllipse))
             {
@@ -193,7 +201,7 @@ int main()
         cv::imshow("cv_hal_rslt", srcImage);
         cv::waitKey();
         
-        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_cv+hal_resualt_2.png", srcImage, my::CVPNG_NO_COMPRESSION);
+        cv::imwrite("D:\\TestSet\\SPCrslt\\Out_cv+hal_resualt_3.png", srcImage, my::CVPNG_NO_COMPRESSION);
 
 
         //imshow_ha("jieguo", ho_ContEllipse);
